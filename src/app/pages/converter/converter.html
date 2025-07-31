@@ -1,0 +1,88 @@
+<div class="container py-5">
+  <h2 class="text-center mb-4">Currency Converter</h2>
+
+  <!-- Обгортка для розмиття -->
+  <div [class.blur-background]="isModalOpen">
+    <form
+      (ngSubmit)="convert()"
+      #form="ngForm"
+      class="row g-3 justify-content-center"
+    >
+      <div class="col-md-3">
+        <label class="form-label">Amount</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="amount"
+          name="amount"
+          required
+          min="0.01"
+        />
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">From</label>
+        <select
+          class="form-select"
+          [(ngModel)]="fromCurrency"
+          name="fromCurrency"
+          required
+        >
+          <option *ngFor="let c of currencies" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">To</label>
+        <select
+          class="form-select"
+          [(ngModel)]="toCurrency"
+          name="toCurrency"
+          required
+        >
+          <option *ngFor="let c of currencies" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-2 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">Convert</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="resultModal"
+    tabindex="-1"
+    aria-labelledby="resultModalLabel"
+    aria-hidden="true"
+    #resultModal
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultModalLabel">Result</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body fs-5">
+          <strong>{{ resultText }}</strong>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
